@@ -75,7 +75,7 @@ module.exports = async function (nodecg) {
 					10
 				);
 			} else if ('Eau' === e.rewardTitle) {
-				nodecg.log.info('Water overlay');
+				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#002CFF'
@@ -85,7 +85,7 @@ module.exports = async function (nodecg) {
 					'Water'
 				);
 			} else if ('Feu' === e.rewardTitle) {
-				nodecg.log.info('Fire overlay');
+				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#FF0016'
@@ -95,7 +95,7 @@ module.exports = async function (nodecg) {
 					'Fire'
 				);
 			} else if ('Terre' === e.rewardTitle) {
-				nodecg.log.info('Earth overlay');
+				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#00FF78'
@@ -105,7 +105,7 @@ module.exports = async function (nodecg) {
 					'Earth'
 				);
 			} else if ('Air' === e.rewardTitle) {
-				nodecg.log.info('Water overlay');
+				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#00dcff'
@@ -115,7 +115,7 @@ module.exports = async function (nodecg) {
 					'Air'
 				);
 			} else if ('Lumière' === e.rewardTitle) {
-				nodecg.log.info('Water overlay');
+				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#FFBF00'
@@ -125,7 +125,7 @@ module.exports = async function (nodecg) {
 					'Light'
 				);
 			} else if ('Ténèbres' === e.rewardTitle) {
-				nodecg.log.info('Water overlay');
+				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#8A43CD'
@@ -139,7 +139,7 @@ module.exports = async function (nodecg) {
 	} else if ("Twyn" === user) {
 		await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
 			if ('Save a Grub!' === e.rewardTitle) {
-				nodecg.log.info('Pop grub');
+				nodecg.log.info(`Pop grub by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'popItem'
 				);
