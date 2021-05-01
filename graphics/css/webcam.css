@@ -1,0 +1,9 @@
+#webcam {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 374px;
+	height: 210px;
+	transition: border-color 1s ease;
+	border: rgba(0, 0, 0, 1) 5px solid;
+}

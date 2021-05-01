@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+	<link rel="stylesheet" href="css/global.css"/>
+	<link rel="stylesheet" href="css/pops.css"/>
+
+	<script src="js/clock.js"></script>
+	<script src="js/color.js"></script>
+</head>
+<body>
+	<div class="container"></div>
+
+	<script>
+		const container = document.querySelector('.container');
+
+		const width = nodecg.bundleConfig.pops.width;
+		const heigth = nodecg.bundleConfig.pops.height;
+
+		container.style.width = width + 'px';
+		container.style.height = heigth + 'px';
+
+		nodecg.listenFor('popItem', (color) => {
+			createPop();
+		});
+
+		function createPop()
+		{
+			let img = document.createElement('img');
+			img.classList.add('pop');
+			img.src = 'img/pop.png'
+
+			let posX = Math.floor(Math.random() * (width - 100)) + 'px';
+			let posY = Math.floor(Math.random() * (heigth - 100)) + 'px';
+
+			img.style.left = posX;
+			img.style.top = posY;
+
+			setTimeout(function(){
+				img.remove();
+			}, 5000);
+
+			container.appendChild(img);
+		}
+	</script>
+</body>
+</html>

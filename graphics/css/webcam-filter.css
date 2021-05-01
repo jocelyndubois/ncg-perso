@@ -1,0 +1,13 @@
+#webcam-filter {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 384px;
+	height: 220px;
+	background-color: rgba(0,0,0,0.5);
+	transition: background-color 1s ease;
+}
+
+.disabled {
+	display: none;
+}

@@ -1,0 +1,42 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"additionalProperties": false,
+
+	"properties": {
+		"pseudo": {
+			"type": "string",
+			"default": "PSEUDO"
+		},
+		"twitch": {
+			"type": "object",
+			"properties": {
+				"clientId": {
+					"type": "string",
+					"default": "CLIENT-ID"
+				},
+				"clientSecret": {
+					"type": "string",
+					"default": "CLIENT-SECRET"
+				},
+				"userId": {
+					"type": "integer",
+					"default": 12345
+				}
+			}
+		},
+		"pops": {
+			"type": "object",
+			"properties": {
+				"width": {
+					"type": "integer",
+					"default": 1920
+				},
+				"height": {
+					"type": "integer",
+					"default": 1080
+				}
+			}
+		}
+	}
+}

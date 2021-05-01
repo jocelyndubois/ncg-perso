@@ -1,0 +1,49 @@
+#downbar-up {
+	position: fixed;
+	left: 0;
+	bottom: 20px;
+	width: 1920px;
+	height: 2px;
+	transition: background-color 1s ease;
+	background-color: rgba(0, 0, 0, 1);
+}
+
+#downbar {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 1920px;
+	height: 20px;
+	display: flex;
+	transition: background-color 1s ease;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+#clock {
+	font-size: 1.5em;
+	transition: color 1s ease;
+	color: rgba(0, 0, 0, 1);
+	line-height: 20px;
+	opacity: 1;
+}
+
+#middle {
+	/*flex: 1;*/
+	transition: color 1s ease;
+	color: rgba(255, 255, 255, 1);
+	font-size: 1.5em;
+	line-height: 20px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#right {
+	/*flex: 1;*/
+	transition: color 1s ease;
+	color: rgba(255, 255, 255, 1);
+	font-size: 1.5em;
+	line-height: 20px;
+	position: relative;
+	right: 15px;
+	text-align: right;
+}

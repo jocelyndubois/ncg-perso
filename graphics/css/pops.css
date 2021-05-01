@@ -1,0 +1,12 @@
+.container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 1920px;
+	height: 1080px;
+}
+
+.pop {
+	width: 100px;
+	position: fixed;
+}

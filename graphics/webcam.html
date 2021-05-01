@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+	<link rel="stylesheet" href="css/webcam.css"/>
+
+	<script src="js/color.js"></script>
+</head>
+<body>
+	<div id="webcam"></div>
+
+	<script>
+		const webcam = document.getElementById('webcam');
+
+		nodecg.listenFor('changeColor', (color) => {
+			webcam.style.borderColor = colorToRgba(color);
+		});
+	</script>
+</body>
+</html>

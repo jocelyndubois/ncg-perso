@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+	<link rel="stylesheet" href="css/webcam-filter.css"/>
+
+	<script src="js/color.js"></script>
+</head>
+<body>
+	<div id="webcam-filter" class="disabled"></div>
+
+	<script>
+		const webcamFilter = document.getElementById('webcam-filter');
+
+		let remainingRainbowTime = 0;
+
+		let rainbowInterval = null;
+
+		nodecg.listenFor('rainbow', (time) => {
+			remainingRainbowTime += time;
+			if (!rainbowInterval) {
+				rainbowInterval = setInterval(rainbowEffetct,1000);
+				webcamFilter.classList.remove('disabled');
+			}
+		});
+
+		function rainbowEffetct()
+		{
+			if (0 === remainingRainbowTime) {
+				clearInterval(rainbowInterval);
+				rainbowInterval = null;
+				webcamFilter.classList.add('disabled');
+			} else {
+				let color = {
+					_r: getRandomInt(255),
+					_g: getRandomInt(255),
+					_b: getRandomInt(255),
+					_a: 0.5
+				};
+
+				webcamFilter.style.backgroundColor = colorToRgba(color);
+
+				remainingRainbowTime--;
+			}
+		}
+
+		function getRandomInt(max) {
+			return Math.floor(Math.random() * max);
+		}
+	</script>
+</body>
+</html>
