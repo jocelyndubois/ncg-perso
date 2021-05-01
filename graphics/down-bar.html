@@ -23,12 +23,8 @@
 		const middle = document.getElementById('middle');
 		const right = document.getElementById('right');
 
-		const clock = document.getElementById('clock');
-
 		nodecg.listenFor('changeColor', (color) => {
 			downbarUp.style.backgroundColor = colorToRgba(color);
-			// downbar.style.backgroundColor = colorToRgba(color, 0.1);
-			clock.style.color = colorToRgba(color);
 		});
 
 		//Down texts

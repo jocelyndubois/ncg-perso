@@ -53,6 +53,11 @@
         "height": 220
       },
       {
+        "file": "webcam-background.html",
+        "width": 384,
+        "height": 220
+      },
+      {
         "file": "pops.html",
         "width": 1920,
         "height": 1080

@@ -77,7 +77,11 @@ module.exports = async function (nodecg) {
 				nodecg.log.info('Water overlay');
 				nodecg.sendMessage(
 					'swapColor',
-					'#00A7FF'
+					'#002CFF'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Water'
 				);
 			} else if ('Feu' === e.rewardTitle) {
 				nodecg.log.info('Fire overlay');
@@ -85,11 +89,49 @@ module.exports = async function (nodecg) {
 					'swapColor',
 					'#FF0016'
 				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Fire'
+				);
 			} else if ('Terre' === e.rewardTitle) {
 				nodecg.log.info('Earth overlay');
 				nodecg.sendMessage(
 					'swapColor',
 					'#00FF78'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Earth'
+				);
+			} else if ('Air' === e.rewardTitle) {
+				nodecg.log.info('Water overlay');
+				nodecg.sendMessage(
+					'swapColor',
+					'#00dcff'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Air'
+				);
+			} else if ('Lumière' === e.rewardTitle) {
+				nodecg.log.info('Water overlay');
+				nodecg.sendMessage(
+					'swapColor',
+					'#FFBF00'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Light'
+				);
+			} else if ('Ténèbres' === e.rewardTitle) {
+				nodecg.log.info('Water overlay');
+				nodecg.sendMessage(
+					'swapColor',
+					'#8A43CD'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Darkness'
 				);
 			}
 		});

@@ -1,0 +1,10 @@
+#webcam-background {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 384px;
+	height: 220px;
+	transition: opacity 0.5s ease-in-out;
+	background-image:url("../img/webcam/Earth.jpg");
+	background-size: 384px 220px;
+}

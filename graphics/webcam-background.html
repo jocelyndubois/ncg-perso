@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+	<link rel="stylesheet" href="css/webcam-background.css"/>
+
+	<script src="js/color.js"></script>
+</head>
+<body>
+	<div id="webcam-background"></div>
+
+	<script>
+		const webcamBackground = document.getElementById('webcam-background');
+
+		nodecg.listenFor('swapBackground', (element) => {
+			webcamBackground.style.opacity = 0;
+
+			setTimeout(() => {
+				webcamBackground.style.backgroundImage = "url('img/webcam/" + element + ".jpg')";
+				webcamBackground.style.opacity = 1;
+			}, 500)
+		});
+	</script>
+</body>
+</html>
