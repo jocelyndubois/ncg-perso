@@ -13,6 +13,7 @@ module.exports = async function (nodecg) {
 
 	const clientId = nodecg.bundleConfig.twitch.clientId;
 	const clientSecret = nodecg.bundleConfig.twitch.clientSecret;
+	const accessToken = nodecg.bundleConfig.twitch.accessToken;
 	const userId = nodecg.bundleConfig.twitch.userId;
 
 	const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
@@ -26,8 +27,8 @@ module.exports = async function (nodecg) {
 		'https://api.twitch.tv/helix/eventsub/subscriptions',
 		{
 			headers: {
-				'Authorization': 'Bearer 8eysjhtauf1u5dsk5fti81ximatjqo',
-				'Client-Id': 's4q3q1ns3g51eiqve0jabgxedx8bq2'
+				'Authorization': 'Bearer ' + accessToken,
+				'Client-Id': clientId
 			}
 		}
 	);
@@ -48,8 +49,8 @@ module.exports = async function (nodecg) {
 			'https://api.twitch.tv/helix/eventsub/subscriptions',
 			{
 				headers: {
-					'Authorization': 'Bearer 8eysjhtauf1u5dsk5fti81ximatjqo',
-					'Client-Id': 's4q3q1ns3g51eiqve0jabgxedx8bq2'
+					'Authorization': 'Bearer ' + accessToken,
+					'Client-Id': clientId
 				},
 				params: {
 					'id': subId

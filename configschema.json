@@ -19,6 +19,10 @@
 					"type": "string",
 					"default": "CLIENT-SECRET"
 				},
+				"accessToken": {
+					"type": "string",
+					"default": "ACCESS-TOKEN"
+				},
 				"userId": {
 					"type": "integer",
 					"default": 12345
