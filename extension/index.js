@@ -105,7 +105,7 @@ module.exports = async function (nodecg) {
 					'Earth'
 				);
 			} else if ('Air' === e.rewardTitle) {
-				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
+				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#00dcff'
@@ -115,7 +115,7 @@ module.exports = async function (nodecg) {
 					'Air'
 				);
 			} else if ('Lumière' === e.rewardTitle) {
-				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
+				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#FFBF00'
@@ -125,7 +125,7 @@ module.exports = async function (nodecg) {
 					'Light'
 				);
 			} else if ('Ténèbres' === e.rewardTitle) {
-				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
+				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
 					'#8A43CD'
