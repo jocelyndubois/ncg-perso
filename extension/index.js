@@ -144,6 +144,13 @@ module.exports = async function (nodecg) {
 					'popItem'
 				);
 			}
+			else if('Disco Madness' === e.rewardTitle) {
+				nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'rainbow',
+					120
+				);
+			}
 		});
 	}
 };
