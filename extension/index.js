@@ -6,11 +6,16 @@ const { ClientCredentialsAuthProvider  } = require('twitch-auth');
 const { EventSubListener } = require('twitch-eventsub');
 const { NgrokAdapter } = require('twitch-webhooks-ngrok');
 
+
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
 module.exports = async function (nodecg) {
 	const user = nodecg.bundleConfig.pseudo;
-
-
-
 	const clientId = nodecg.bundleConfig.twitch.clientId;
 	const clientSecret = nodecg.bundleConfig.twitch.clientSecret;
 	const accessToken = nodecg.bundleConfig.twitch.accessToken;
@@ -65,6 +70,15 @@ module.exports = async function (nodecg) {
 		}
 	}
 
+	//Démarrage du serveur socket.io
+	server.listen(3100, () => {
+		nodecg.log.info('listening on *:3100');
+	});
+
+	io.on('connection', (socket) => {
+		nodecg.log.info('djodjibot is now connected');
+	});
+
 	//Channel points handling.
 	if ("Djodjino" === user) {
 		await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
@@ -84,16 +98,18 @@ module.exports = async function (nodecg) {
 					'swapBackground',
 					'Water'
 				);
+				emitchangeGuild(e.userDisplayName, 'water');
 			} else if ('Feu' === e.rewardTitle) {
 				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#921616'
+					'#FF0016'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Fire'
 				);
+				emitchangeGuild(e.userDisplayName, 'fire');
 			} else if ('Terre' === e.rewardTitle) {
 				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
@@ -104,6 +120,7 @@ module.exports = async function (nodecg) {
 					'swapBackground',
 					'Earth'
 				);
+				emitchangeGuild(e.userDisplayName, 'earth');
 			} else if ('Air' === e.rewardTitle) {
 				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
@@ -114,16 +131,18 @@ module.exports = async function (nodecg) {
 					'swapBackground',
 					'Air'
 				);
+				emitchangeGuild(e.userDisplayName, 'air');
 			} else if ('Lumière' === e.rewardTitle) {
 				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#e0be62'
+					'#FFBF00'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Light'
 				);
+				emitchangeGuild(e.userDisplayName, 'light');
 			} else if ('Ténèbres' === e.rewardTitle) {
 				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
@@ -133,6 +152,15 @@ module.exports = async function (nodecg) {
 				nodecg.sendMessage(
 					'swapBackground',
 					'Darkness'
+				);
+				emitchangeGuild(e.userDisplayName, 'darkness');
+			} else if ('Poison' === e.rewardTitle) {
+				nodecg.log.info(`Poison used by ${e.userDisplayName}`);
+				io.sockets.emit(
+					'poison',
+					{
+						'user': e.userDisplayName,
+					}
 				);
 			}
 		});
@@ -147,63 +175,87 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#15658e'
+					'#002CFF'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Water'
 				);
+				emitchangeGuild(e.userDisplayName, 'water');
 			} else if ('Feu' === e.rewardTitle) {
 				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#921616'
+					'#FF0016'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Fire'
 				);
+				emitchangeGuild(e.userDisplayName, 'fire');
 			} else if ('Terre' === e.rewardTitle) {
 				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#294f38'
+					'#00FF78'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Earth'
 				);
+				emitchangeGuild(e.userDisplayName, 'earth');
 			} else if ('Air' === e.rewardTitle) {
 				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#c1c1c1'
+					'#00dcff'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Air'
 				);
+				emitchangeGuild(e.userDisplayName, 'air');
 			} else if ('Lumière' === e.rewardTitle) {
 				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#e0be62'
+					'#FFBF00'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Light'
 				);
+				emitchangeGuild(e.userDisplayName, 'light');
 			} else if ('Ténèbres' === e.rewardTitle) {
 				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#0e0e0e'
+					'#8A43CD'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
 					'Darkness'
 				);
+				emitchangeGuild(e.userDisplayName, 'darkness');
+			} else if ('Poison' === e.rewardTitle) {
+				nodecg.log.info(`Poison used by ${e.userDisplayName}`);
+				io.sockets.emit(
+					'poison',
+					{
+						'user': e.userDisplayName,
+					}
+				);
 			}
 		});
+	}
+
+	function emitchangeGuild(user, element) {
+		io.sockets.emit(
+			'changeGuild',
+			{
+				'user': user,
+				'guild': element,
+			}
+		);
 	}
 };
