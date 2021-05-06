@@ -103,7 +103,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#FF0016'
+					'#921616'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -136,7 +136,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#FFBF00'
+					'#e0be62'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -175,7 +175,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#002CFF'
+					'#15658e'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -186,7 +186,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#FF0016'
+					'#921616'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -197,7 +197,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#00FF78'
+					'#294f38'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -207,7 +207,7 @@ module.exports = async function (nodecg) {
 			} else if ('Air' === e.rewardTitle) {
 				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
-					'swapColor',
+					'c1c1c1',
 					'#00dcff'
 				);
 				nodecg.sendMessage(
@@ -219,7 +219,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#FFBF00'
+					'#e0be62'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -230,7 +230,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#8A43CD'
+					'#e0be62'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
