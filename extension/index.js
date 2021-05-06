@@ -143,12 +143,65 @@ module.exports = async function (nodecg) {
 				nodecg.sendMessage(
 					'popItem'
 				);
-			}
-			else if('Disco Madness' === e.rewardTitle) {
-				nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
+			} else if ('Eau' === e.rewardTitle) {
+				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
-					'rainbow',
-					120
+					'swapColor',
+					'#002CFF'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Water'
+				);
+			} else if ('Feu' === e.rewardTitle) {
+				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'swapColor',
+					'#FF0016'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Fire'
+				);
+			} else if ('Terre' === e.rewardTitle) {
+				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'swapColor',
+					'#00FF78'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Earth'
+				);
+			} else if ('Air' === e.rewardTitle) {
+				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'swapColor',
+					'#00dcff'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Air'
+				);
+			} else if ('Lumière' === e.rewardTitle) {
+				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'swapColor',
+					'#FFBF00'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Light'
+				);
+			} else if ('Ténèbres' === e.rewardTitle) {
+				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
+				nodecg.sendMessage(
+					'swapColor',
+					'#8A43CD'
+				);
+				nodecg.sendMessage(
+					'swapBackground',
+					'Darkness'
 				);
 			}
 		});
