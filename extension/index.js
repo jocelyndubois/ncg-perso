@@ -79,9 +79,10 @@ module.exports = async function (nodecg) {
 		nodecg.log.info('djodjibot is now connected');
 	});
 
+	let eventListener = null;
 	//Channel points handling.
 	if ("Djodjino" === user) {
-		await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
+		eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
 			if ('Disco Madness' === e.rewardTitle) {
 				nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
 				nodecg.sendMessage(
@@ -165,7 +166,7 @@ module.exports = async function (nodecg) {
 			}
 		});
 	} else if ("Twyn" === user) {
-		await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
+		eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
 			if ('Save a Grub!' === e.rewardTitle) {
 				nodecg.log.info(`Pop grub by ${e.userDisplayName}`);
 				nodecg.sendMessage(
@@ -247,6 +248,15 @@ module.exports = async function (nodecg) {
 				);
 			}
 		});
+	}
+
+	//Refresh every hour.
+	setInterval(await refreshListener, 3600000);
+
+	async function refreshListener() {
+		nodecg.log.info(`Trying to refresh twitch events subscriptions.`);
+		await eventListener.suspend();
+		await eventListener.start();
 	}
 
 	function emitchangeGuild(user, element) {
