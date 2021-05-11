@@ -207,8 +207,8 @@ module.exports = async function (nodecg) {
 			} else if ('Air' === e.rewardTitle) {
 				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
-					'c1c1c1',
-					'#00dcff'
+					'swapColor',
+					'c1c1c1'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
@@ -230,7 +230,7 @@ module.exports = async function (nodecg) {
 				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
 				nodecg.sendMessage(
 					'swapColor',
-					'#e0be62'
+					'#20104a'
 				);
 				nodecg.sendMessage(
 					'swapBackground',
