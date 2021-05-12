@@ -81,183 +81,191 @@ module.exports = async function (nodecg) {
 
 	let eventListener = null;
 	//Channel points handling.
-	if ("Djodjino" === user) {
-		eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
-			if ('Disco Madness' === e.rewardTitle) {
-				nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'rainbow',
-					10
-				);
-			} else if ('Eau' === e.rewardTitle) {
-				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#002CFF'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Water'
-				);
-				emitchangeGuild(e.userDisplayName, 'water');
-			} else if ('Feu' === e.rewardTitle) {
-				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#921616'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Fire'
-				);
-				emitchangeGuild(e.userDisplayName, 'fire');
-			} else if ('Terre' === e.rewardTitle) {
-				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#00FF78'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Earth'
-				);
-				emitchangeGuild(e.userDisplayName, 'earth');
-			} else if ('Air' === e.rewardTitle) {
-				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#00dcff'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Air'
-				);
-				emitchangeGuild(e.userDisplayName, 'air');
-			} else if ('Lumière' === e.rewardTitle) {
-				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#e0be62'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Light'
-				);
-				emitchangeGuild(e.userDisplayName, 'light');
-			} else if ('Ténèbres' === e.rewardTitle) {
-				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#8A43CD'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Darkness'
-				);
-				emitchangeGuild(e.userDisplayName, 'darkness');
-			} else if ('Poison' === e.rewardTitle) {
-				nodecg.log.info(`Poison used by ${e.userDisplayName}`);
-				io.sockets.emit(
-					'poison',
-					{
-						'user': e.userDisplayName,
-					}
-				);
-			}
-		});
-	} else if ("Twyn" === user) {
-		eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
-			if ('Save a Grub!' === e.rewardTitle) {
-				nodecg.log.info(`Pop grub by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'popItem'
-				);
-			} else if ('Eau' === e.rewardTitle) {
-				nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#15658e'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Water'
-				);
-				emitchangeGuild(e.userDisplayName, 'water');
-			} else if ('Feu' === e.rewardTitle) {
-				nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#921616'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Fire'
-				);
-				emitchangeGuild(e.userDisplayName, 'fire');
-			} else if ('Terre' === e.rewardTitle) {
-				nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#294f38'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Earth'
-				);
-				emitchangeGuild(e.userDisplayName, 'earth');
-			} else if ('Air' === e.rewardTitle) {
-				nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'c1c1c1'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Air'
-				);
-				emitchangeGuild(e.userDisplayName, 'air');
-			} else if ('Lumière' === e.rewardTitle) {
-				nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#e0be62'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Light'
-				);
-				emitchangeGuild(e.userDisplayName, 'light');
-			} else if ('Ténèbres' === e.rewardTitle) {
-				nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
-				nodecg.sendMessage(
-					'swapColor',
-					'#20104a'
-				);
-				nodecg.sendMessage(
-					'swapBackground',
-					'Darkness'
-				);
-				emitchangeGuild(e.userDisplayName, 'darkness');
-			} else if ('Poison' === e.rewardTitle) {
-				nodecg.log.info(`Poison used by ${e.userDisplayName}`);
-				io.sockets.emit(
-					'poison',
-					{
-						'user': e.userDisplayName,
-					}
-				);
-			}
-		});
+	async function refreshListener() {
+		if (eventListener) {
+			nodecg.log.info(`Trying to refresh twitch events subscriptions.`);
+			await eventListener.stop();
+			await createListener();
+		} else {
+			nodecg.log.info(`Creating twitch events subscriptions.`);
+			await createListener();
+		}
+	}
+
+	async function createListener() {
+		if ("Djodjino" === user) {
+			eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
+				if ('Disco Madness' === e.rewardTitle) {
+					nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'rainbow',
+						10
+					);
+				} else if ('Eau' === e.rewardTitle) {
+					nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#002CFF'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Water'
+					);
+					emitchangeGuild(e.userDisplayName, 'water');
+				} else if ('Feu' === e.rewardTitle) {
+					nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#921616'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Fire'
+					);
+					emitchangeGuild(e.userDisplayName, 'fire');
+				} else if ('Terre' === e.rewardTitle) {
+					nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#00FF78'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Earth'
+					);
+					emitchangeGuild(e.userDisplayName, 'earth');
+				} else if ('Air' === e.rewardTitle) {
+					nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#00dcff'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Air'
+					);
+					emitchangeGuild(e.userDisplayName, 'air');
+				} else if ('Lumière' === e.rewardTitle) {
+					nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#e0be62'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Light'
+					);
+					emitchangeGuild(e.userDisplayName, 'light');
+				} else if ('Ténèbres' === e.rewardTitle) {
+					nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#8A43CD'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Darkness'
+					);
+					emitchangeGuild(e.userDisplayName, 'darkness');
+				} else if ('Poison' === e.rewardTitle) {
+					nodecg.log.info(`Poison used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'poison',
+						{
+							'user': e.userDisplayName,
+						}
+					);
+				}
+			});
+		} else if ("Twyn" === user) {
+			eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
+				if ('Save a Grub!' === e.rewardTitle) {
+					nodecg.log.info(`Pop grub by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'popItem'
+					);
+				} else if ('Eau' === e.rewardTitle) {
+					nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#15658e'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Water'
+					);
+					emitchangeGuild(e.userDisplayName, 'water');
+				} else if ('Feu' === e.rewardTitle) {
+					nodecg.log.info(`Fire overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#921616'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Fire'
+					);
+					emitchangeGuild(e.userDisplayName, 'fire');
+				} else if ('Terre' === e.rewardTitle) {
+					nodecg.log.info(`Earth overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#294f38'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Earth'
+					);
+					emitchangeGuild(e.userDisplayName, 'earth');
+				} else if ('Air' === e.rewardTitle) {
+					nodecg.log.info(`Air overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#c1c1c1'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Air'
+					);
+					emitchangeGuild(e.userDisplayName, 'air');
+				} else if ('Lumière' === e.rewardTitle) {
+					nodecg.log.info(`Light overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#e0be62'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Light'
+					);
+					emitchangeGuild(e.userDisplayName, 'light');
+				} else if ('Ténèbres' === e.rewardTitle) {
+					nodecg.log.info(`Darkness overlay by ${e.userDisplayName}`);
+					nodecg.sendMessage(
+						'swapColor',
+						'#20104a'
+					);
+					nodecg.sendMessage(
+						'swapBackground',
+						'Darkness'
+					);
+					emitchangeGuild(e.userDisplayName, 'darkness');
+				} else if ('Poison' === e.rewardTitle) {
+					nodecg.log.info(`Poison used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'poison',
+						{
+							'user': e.userDisplayName,
+						}
+					);
+				}
+			});
+		}
 	}
 
 	//Refresh every hour.
+	refreshListener();
 	setInterval(await refreshListener, 3600000);
-
-	async function refreshListener() {
-		nodecg.log.info(`Trying to refresh twitch events subscriptions.`);
-		await eventListener.suspend();
-		await eventListener.start();
-	}
 
 	function emitchangeGuild(user, element) {
 		io.sockets.emit(
