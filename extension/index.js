@@ -234,7 +234,7 @@ module.exports = async function (nodecg) {
 						papaGrubCounter.value = 0;
 					}
 					let counter = papaGrubCounter.value + 1
-					if (counter === 48) {
+					if (counter === 46) {
 						nodecg.log.info(`PAPA GRUB !!! by ${e.userDisplayName}`);
 
 						papaGrubCounter.value = 0;
