@@ -175,6 +175,22 @@ module.exports = async function (nodecg) {
 							'user': e.userDisplayName,
 						}
 					);
+				} else if ('Régicide' === e.rewardTitle) {
+					nodecg.log.info(`Régicide used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'kingSlayer',
+						{
+							'user': e.userDisplayName,
+						}
+					);
+				} else if ('Défendre la royauté' === e.rewardTitle) {
+					nodecg.log.info(`KingGuard used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'kingGuard',
+						{
+							'user': e.userDisplayName,
+						}
+					);
 				}
 			});
 		} else if ("Twyn" === user) {
@@ -254,6 +270,22 @@ module.exports = async function (nodecg) {
 					nodecg.log.info(`Poison used by ${e.userDisplayName}`);
 					io.sockets.emit(
 						'poison',
+						{
+							'user': e.userDisplayName,
+						}
+					);
+				} else if ('Régicide' === e.rewardTitle) {
+					nodecg.log.info(`Régicide used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'kingSlayer',
+						{
+							'user': e.userDisplayName,
+						}
+					);
+				} else if ('Défendre la royauté' === e.rewardTitle) {
+					nodecg.log.info(`KingGuard used by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'kingGuard',
 						{
 							'user': e.userDisplayName,
 						}
