@@ -21,18 +21,29 @@
 		container.style.width = width + 'px';
 		container.style.height = heigth + 'px';
 
-		nodecg.listenFor('popItem', (color) => {
+		nodecg.listenFor('popItem', () => {
 			createPop();
 		});
 
-		function createPop()
+		nodecg.listenFor('popBigItem', () => {
+			createPop(true);
+		});
+
+		function createPop(big = false)
 		{
 			let img = document.createElement('img');
-			img.classList.add('pop');
-			img.src = 'img/pop.png'
+			let size = 100;
+			if (big) {
+				size = 200;
+				img.classList.add('bigPop');
+				img.src = 'img/bigPop.png'
+			} else {
+				img.classList.add('pop');
+				img.src = 'img/pop.png'
+			}
 
-			let posX = Math.floor(Math.random() * (width - 100)) + 'px';
-			let posY = Math.floor(Math.random() * (heigth - 100)) + 'px';
+			let posX = Math.floor(Math.random() * (width - size)) + 'px';
+			let posY = Math.floor(Math.random() * (heigth - size)) + 'px';
 
 			img.style.left = posX;
 			img.style.top = posY;

@@ -10,3 +10,9 @@
 	width: 100px;
 	position: fixed;
 }
+
+.bigPop {
+	width: 200px;
+	position: fixed;
+	z-index: 999999999999;
+}

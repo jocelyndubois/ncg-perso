@@ -92,10 +92,43 @@ module.exports = async function (nodecg) {
 		}
 	}
 
+	const papaGrubCounter = nodecg.Replicant('papaGrub');
 	async function createListener() {
 		if ("Djodjino" === user) {
 			eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
-				if ('Disco Madness' === e.rewardTitle) {
+				if ('Save a Grub!' === e.rewardTitle) {
+					nodecg.log.info(`Grub popped by ${e.userDisplayName}`);
+					if (!papaGrubCounter.value) {
+						papaGrubCounter.value = 0;
+					}
+					let counter = papaGrubCounter.value + 1
+					if (counter === 4) {
+						nodecg.log.info(`PAPA GRUB !!! by ${e.userDisplayName}`);
+
+						papaGrubCounter.value = 0;
+						nodecg.sendMessage(
+							'popBigItem'
+						);
+						io.sockets.emit(
+							'papaGrub',
+							{
+								'user': e.userDisplayName,
+							}
+						);
+					} else {
+						papaGrubCounter.value = counter;
+						nodecg.sendMessage(
+							'popItem'
+						);
+						io.sockets.emit(
+							'grub',
+							{
+								'user': e.userDisplayName,
+								'total': counter
+							}
+						);
+					}
+				} else if ('Disco Madness' === e.rewardTitle) {
 					nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
 					nodecg.sendMessage(
 						'rainbow',
@@ -196,10 +229,37 @@ module.exports = async function (nodecg) {
 		} else if ("Twyn" === user) {
 			eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
 				if ('Save a Grub!' === e.rewardTitle) {
-					nodecg.log.info(`Pop grub by ${e.userDisplayName}`);
-					nodecg.sendMessage(
-						'popItem'
-					);
+					nodecg.log.info(`Grub popped by ${e.userDisplayName}`);
+					if (!papaGrubCounter.value) {
+						papaGrubCounter.value = 0;
+					}
+					let counter = papaGrubCounter.value + 1
+					if (counter === 48) {
+						nodecg.log.info(`PAPA GRUB !!! by ${e.userDisplayName}`);
+
+						papaGrubCounter.value = 0;
+						nodecg.sendMessage(
+							'popBigItem'
+						);
+						io.sockets.emit(
+							'papaGrub',
+							{
+								'user': e.userDisplayName,
+							}
+						);
+					} else {
+						papaGrubCounter.value = counter;
+						nodecg.sendMessage(
+							'popItem'
+						);
+						io.sockets.emit(
+							'grub',
+							{
+								'user': e.userDisplayName,
+								'total': counter
+							}
+						);
+					}
 				} else if ('Eau' === e.rewardTitle) {
 					nodecg.log.info(`Water overlay by ${e.userDisplayName}`);
 					nodecg.sendMessage(
