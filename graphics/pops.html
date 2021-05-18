@@ -50,7 +50,28 @@
 
 			setTimeout(function(){
 				img.remove();
-			}, 600000);
+				endAnim(big,posX,posY);
+			}, 10000);
+
+			container.appendChild(img);
+		}
+		
+		function endAnim(big,posX,posY){
+			let img = document.createElement('img');
+			let size = 100;
+			if (big) {
+				return;
+			} else {
+				img.classList.add('pop');
+				img.src = 'img/mario.gif'
+			}
+
+			img.style.left = posX;
+			img.style.top = posY;
+
+			setTimeout(function(){
+				img.remove();
+			}, 2000);
 
 			container.appendChild(img);
 		}
