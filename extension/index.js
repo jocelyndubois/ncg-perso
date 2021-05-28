@@ -4,7 +4,7 @@ const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider  } = require('twitch-auth');
 const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
 const { NgrokAdapter } = require('twitch-webhooks-ngrok');
-const crypto = require("crypto");
+
 const fs = require('fs');
 
 const express = require('express');
@@ -15,8 +15,6 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 
 module.exports = async function (nodecg) {
-	const twitchSigningSecret = nodecg.bundleConfig.twitch.secret;
-
 	const user = nodecg.bundleConfig.pseudo;
 	const clientId = nodecg.bundleConfig.twitch.clientId;
 	const clientSecret = nodecg.bundleConfig.twitch.clientSecret;
@@ -88,59 +86,6 @@ module.exports = async function (nodecg) {
 	//Démarrage du serveur socket.io
 	server.listen(3100, () => {
 		nodecg.log.info('listening on *:3100');
-	});
-
-	const verifyTwitchSignature = (req, res, buf, encoding) => {
-		const messageId = req.header("Twitch-Eventsub-Message-Id");
-		const timestamp = req.header("Twitch-Eventsub-Message-Timestamp");
-		const messageSignature = req.header("Twitch-Eventsub-Message-Signature");
-		const time = Math.floor(new Date().getTime() / 1000);
-		console.log(`Message ${messageId} Signature: `, messageSignature);
-
-		if (Math.abs(time - timestamp) > 600) {
-			// needs to be < 10 minutes
-			console.log(`Verification Failed: timestamp > 10 minutes. Message Id: ${messageId}.`);
-			throw new Error("Ignore this request.");
-		}
-
-		if (!twitchSigningSecret) {
-			console.log(`Twitch signing secret is empty.`);
-			throw new Error("Twitch signing secret is empty.");
-		}
-
-		const computedSignature =
-			"sha256=" +
-			crypto
-				.createHmac("sha256", twitchSigningSecret)
-				.update(messageId + timestamp + buf)
-				.digest("hex");
-		console.log(`Message ${messageId} Computed Signature: `, computedSignature);
-
-		if (messageSignature !== computedSignature) {
-			throw new Error("Invalid signature.");
-		} else {
-			console.log("Verification successful");
-		}
-	};
-
-	app.use(express.json({ verify: verifyTwitchSignature }));
-
-	app.post("/webhooks/callback", async (req, res) => {
-		const messageType = req.header("Twitch-Eventsub-Message-Type");
-		if (messageType === "webhook_callback_verification") {
-			console.log("Verifying Webhook");
-			return res.status(200).send(req.body.challenge);
-		}
-
-		const { type } = req.body.subscription;
-		const { event } = req.body;
-
-		console.log(
-			`Receiving ${type} request for ${event.broadcaster_user_name}: `,
-			event
-		);
-
-		res.status(200).end();
 	});
 
 	io.on('connection', (socket) => {
