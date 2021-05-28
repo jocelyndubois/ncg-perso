@@ -29,6 +29,27 @@
 				}
 			}
 		},
+		"ssl": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean",
+					"default": "false"
+				},
+				"hostName": {
+					"type": "string",
+					"default": "hostname.com"
+				},
+				"keyPath": {
+					"type": "string",
+					"default": "/path/to/key"
+				},
+				"certificatePath": {
+					"type": "string",
+					"default": "/path/to/cert"
+				}
+			}
+		},
 		"pops": {
 			"type": "object",
 			"properties": {

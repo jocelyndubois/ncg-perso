@@ -22,7 +22,7 @@ module.exports = async function (nodecg) {
 	const userId = nodecg.bundleConfig.twitch.userId;
 
 	let adapter = null;
-	if (nodecg.bundleConfig.ssl) {
+	if (nodecg.bundleConfig.ssl && nodecg.bundleConfig.ssl.enabled) {
 		adapter = new DirectConnectionAdapter({
 			hostName: nodecg.bundleConfig.ssl.hostName,
 			sslCert: {
