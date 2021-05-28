@@ -2,10 +2,10 @@
 const axios = require('axios');
 const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider  } = require('twitch-auth');
-// const { StaticAuthProvider } = require('twitch-auth');
 const { EventSubListener } = require('twitch-eventsub');
 const { NgrokAdapter } = require('twitch-webhooks-ngrok');
 
+const fs = require('fs');
 
 const express = require('express');
 const app = express();
@@ -21,10 +21,23 @@ module.exports = async function (nodecg) {
 	const accessToken = nodecg.bundleConfig.twitch.accessToken;
 	const userId = nodecg.bundleConfig.twitch.userId;
 
+	let adapter = null;
+	if (nodecg.bundleConfig.ssl) {
+		adapter = new DirectConnectionAdapter({
+			hostName: nodecg.bundleConfig.ssl.hostName,
+			sslCert: {
+				key: fs.readFileSync(nodecg.bundleConfig.ssl.keyPath, 'utf8'),
+				cert: fs.readFileSync(nodecg.bundleConfig.ssl.hoscertificatePathtName, 'utf8'),
+			}
+		});
+	} else {
+		adapter = new NgrokAdapter();
+	}
+
 	const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
 	const apiClient = new ApiClient({ authProvider });
 
-	const listener = new EventSubListener(apiClient, new NgrokAdapter(), 'thisShouldBeARandomlyGeneratedFixedString');
+	const listener = new EventSubListener(apiClient, adapter, 'thisShouldBeARandomlyGeneratedFixedString');
 	await listener.listen();
 
 	//Old subscriptions handling.
