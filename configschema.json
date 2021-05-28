@@ -2,7 +2,6 @@
 	"$schema": "http://json-schema.org/draft-04/schema#",
 	"type": "object",
 	"additionalProperties": false,
-
 	"properties": {
 		"pseudo": {
 			"type": "string",
@@ -26,6 +25,10 @@
 				"userId": {
 					"type": "integer",
 					"default": 12345
+				},
+				"secret": {
+					"type": "string",
+					"default": "purplemonkeydishwasher"
 				}
 			}
 		},
