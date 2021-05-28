@@ -2,7 +2,7 @@
 const axios = require('axios');
 const { ApiClient } = require('twitch');
 const { ClientCredentialsAuthProvider  } = require('twitch-auth');
-const { EventSubListener } = require('twitch-eventsub');
+const { DirectConnectionAdapter, EventSubListener } = require('twitch-eventsub');
 const { NgrokAdapter } = require('twitch-webhooks-ngrok');
 
 const fs = require('fs');
