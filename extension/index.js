@@ -96,38 +96,14 @@ module.exports = async function (nodecg) {
 	async function createListener() {
 		if ("Djodjino" === user) {
 			eventListener = await listener.subscribeToChannelRedemptionAddEvents(userId, e => {
-				if ('Save a Grub!' === e.rewardTitle) {
-					nodecg.log.info(`Grub popped by ${e.userDisplayName}`);
-					if (!papaGrubCounter.value) {
-						papaGrubCounter.value = 0;
-					}
-					let counter = papaGrubCounter.value + 1
-					if (counter === 4) {
-						nodecg.log.info(`PAPA GRUB !!! by ${e.userDisplayName}`);
-
-						papaGrubCounter.value = 0;
-						nodecg.sendMessage(
-							'popBigItem'
-						);
-						io.sockets.emit(
-							'papaGrub',
-							{
-								'user': e.userDisplayName,
-							}
-						);
-					} else {
-						papaGrubCounter.value = counter;
-						nodecg.sendMessage(
-							'popItem'
-						);
-						io.sockets.emit(
-							'grub',
-							{
-								'user': e.userDisplayName,
-								'total': counter
-							}
-						);
-					}
+				if ('Potion de chaos !!!' === e.rewardTitle) {
+					nodecg.log.info(`CHAOS popped by ${e.userDisplayName}`);
+					io.sockets.emit(
+						'chaosPotion',
+						{
+							'user': e.userDisplayName
+						}
+					);
 				} else if ('Disco Madness' === e.rewardTitle) {
 					nodecg.log.info(`Event triggered : Disco madness by ${e.userDisplayName}`);
 					nodecg.sendMessage(
