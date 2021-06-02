@@ -7,52 +7,6 @@
 			"type": "string",
 			"default": "PSEUDO"
 		},
-		"twitch": {
-			"type": "object",
-			"properties": {
-				"clientId": {
-					"type": "string",
-					"default": "CLIENT-ID"
-				},
-				"clientSecret": {
-					"type": "string",
-					"default": "CLIENT-SECRET"
-				},
-				"accessToken": {
-					"type": "string",
-					"default": "ACCESS-TOKEN"
-				},
-				"userId": {
-					"type": "integer",
-					"default": 12345
-				},
-				"secret": {
-					"type": "string",
-					"default": "purplemonkeydishwasher"
-				}
-			}
-		},
-		"ssl": {
-			"type": "object",
-			"properties": {
-				"enabled": {
-					"type": "boolean",
-					"default": "false"
-				},
-				"hostName": {
-					"type": "string",
-					"default": "hostname.com"
-				},
-				"keyPath": {
-					"type": "string",
-					"default": "/path/to/key"
-				},
-				"certificatePath": {
-					"type": "string",
-					"default": "/path/to/cert"
-				}
-			}
-		},
 		"pops": {
 			"type": "object",
 			"properties": {
