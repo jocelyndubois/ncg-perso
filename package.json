@@ -61,6 +61,21 @@
         "file": "pops.html",
         "width": 1920,
         "height": 1080
+      },
+      {
+        "file": "spotify.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "spotify-round.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "spotify-text.html",
+        "width": 1920,
+        "height": 1080
       }
     ]
   },
