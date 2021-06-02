@@ -13,8 +13,8 @@ module.exports = async function (nodecg) {
 	const user = nodecg.bundleConfig.pseudo;
 
 	//Démarrage du serveur socket.io
-	server.listen(3100, () => {
-		nodecg.log.info('listening on *:3100');
+	server.listen(3200, () => {
+		nodecg.log.info('listening on *:3200');
 	});
 
 	io.on('connection', (socket) => {
